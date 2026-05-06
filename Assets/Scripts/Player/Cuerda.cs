@@ -38,9 +38,14 @@ public class Cuerda : MonoBehaviour
                 distanciaActual += scroll * Velo;
                 distanciaActual = Mathf.Clamp(distanciaActual, DistMin, DistMax);
             }
-            Vector3 direccion = (Conectado.position - Mano.position).normalized;
-            Conectado.position = Mano.position + direccion * distanciaActual;
-
+            //Vector3 direccion = (Conectado.position - Mano.position).normalized;
+            //Conectado.position = Mano.position + direccion * distanciaActual;
+            PerroRuta ruta = Conectado.GetComponent<PerroRuta>();
+            if (ruta != null) 
+            {
+                Vector3 direccion = (Conectado.position - Mano.position).normalized;
+                Conectado.position = Mano.position + direccion * distanciaActual;
+            }
             cuerda.enabled = true;
             cuerda.SetPosition(0, Mano.position);
             cuerda.SetPosition(1, Conectado.position);

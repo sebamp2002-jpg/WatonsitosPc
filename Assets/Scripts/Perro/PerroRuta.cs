@@ -50,9 +50,10 @@ public class PerroRuta : MonoBehaviour
 
     public void Soltar() 
     {
-        Actual = 0;
+        //Actual = 0;
         EnRuta = true;
         agente.isStopped = false;
-        MoverOtroPunto();
+        //MoverOtroPunto();
+        agente.destination = puntos[Actual].position;
     }
 }
