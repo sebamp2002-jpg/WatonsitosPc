@@ -10,6 +10,7 @@ public class Olfato : MonoBehaviour
     float Tiempo = 0;
     private bool olfateando = false;
     private PerroRuta ruta;
+    public GameObject Texto;
 
     void OnTriggerEnter(Collider other)
     {
@@ -19,6 +20,7 @@ public class Olfato : MonoBehaviour
             ruta.agarrar();
             olfateando = true;
             Debug.Log("Olfateando");
+            Texto.SetActive(true);
             //Invoke(TiempoEspera);            
         }
     }
@@ -42,5 +44,6 @@ public class Olfato : MonoBehaviour
         ruta.Soltar();
         olfateando = false;
         Debug.Log("Termino");
+        Texto.SetActive(false);
     }
 }
