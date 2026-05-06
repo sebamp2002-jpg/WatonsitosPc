@@ -57,28 +57,30 @@ public class Cuerda : MonoBehaviour
         Vector3 origen = transform.position;
         Vector3 direccion = transform.forward;
 
-        if (Physics.Raycast(origen, direccion, out toca, RaycastDist, Layer))
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            if (Input.GetKeyDown(KeyCode.G))
+            if (!DetectarPerro)
             {
-                if (!DetectarPerro)
+                if (Physics.Raycast(origen, direccion, out toca, RaycastDist, Layer))
                 {
+
+
                     DetectarPerro = true;
                     Conectado = toca.collider.transform;
                     distanciaActual = Mathf.Clamp(
-                        Vector3.Distance(transform.position, Conectado.position),
-                        DistMin, DistMax
-                    );
+                    Vector3.Distance(transform.position, Conectado.position),
+                    DistMin, DistMax);
                     Conectado.GetComponent<PerroRuta>().Soltar(); //Codigo PerroRuta
-                    //Debug.Log("Perro agarrado!");
-                }
+                }                                                      //Debug.Log("Perro agarrado!");
+
                 else
-                {
+                { 
                     Conectado.GetComponent<PerroRuta>().agarrar(); //Codigo PerroRuta
                     DetectarPerro = false;
                     Conectado = null;
                     //Debug.Log("Perro suelto!");
-                }
+                    
+                }    
             }
         }
     }
