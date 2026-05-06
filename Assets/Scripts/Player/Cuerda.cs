@@ -4,7 +4,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Cuerda : MonoBehaviour
 {
-    public float DistMax = 6, DistMin = 2, Velo = 3, RaycastDist = 5;
+    public float DistMax = 6, DistMin = 2, Velo = 3, RaycastDist = 6;
     private bool DetectarPerro = false;
     private Transform Conectado = null;
     public Transform Mano;
@@ -68,7 +68,7 @@ public class Cuerda : MonoBehaviour
             {
                 if (Physics.Raycast(origen, direccion, out toca, RaycastDist, Layer))
                 {
-
+                    //Debug.DrawRay(transform.position, transform.forward * RaycastDist, Color.red);
 
                     DetectarPerro = true;
                     Conectado = toca.collider.transform;
