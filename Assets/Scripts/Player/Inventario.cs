@@ -67,12 +67,14 @@ public class Inventario : MonoBehaviour
     public void Premio() 
     {
         Mano.Mostrar(Mano.premio);
+        Mano.UsarPremio();
         CerrarInventario();
         //Debug.Log("Premio");
     }
     public void BolsaBasura() 
     {
         Mano.Mostrar(Mano.bolsa);
+        Mano.UsarBolsa();
         CerrarInventario();
         //Debug.Log("Basura");
     }
