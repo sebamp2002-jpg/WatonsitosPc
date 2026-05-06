@@ -8,6 +8,7 @@ public class PerroCaca : MonoBehaviour
     private bool cacaSuelo = false;
     private bool Hizo = false;
     private PerroRuta perro;
+    public GameObject Texto;
 
     void OnTriggerEnter(Collider other)
     {
@@ -18,6 +19,7 @@ public class PerroCaca : MonoBehaviour
             Caca.SetActive(true);
             cacaSuelo = true;
             Hizo = true;
+            Texto.SetActive(true);
         }
     }
 
@@ -28,6 +30,7 @@ public class PerroCaca : MonoBehaviour
             Caca.SetActive(false);
             cacaSuelo = false;
             perro.Soltar();
+            Texto.SetActive(false);
         }
     }
 }
