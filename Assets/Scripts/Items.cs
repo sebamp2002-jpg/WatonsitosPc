@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Items : MonoBehaviour
 {
-    public GameObject agua, premio, bolsa, celular;
+    public GameObject agua, premio, bolsa; //Celular
     private GameObject itemActual = null;
 
+    
     public void Mostrar(GameObject item)
     {
+        if (itemActual == item) 
+        {
+            Ocultar();
+            return;
+        }
         if (itemActual != null)
         {
             itemActual.SetActive(false);

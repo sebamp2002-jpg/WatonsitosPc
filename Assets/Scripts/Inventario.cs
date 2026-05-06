@@ -76,11 +76,11 @@ public class Inventario : MonoBehaviour
         CerrarInventario();
         //Debug.Log("Basura");
     }
-    public void Celular() 
-    {
-        Mano.Mostrar(Mano.celular);
-        CerrarInventario();
+    //public void Celular() 
+    //{
+        //Mano.Mostrar(Mano.celular);
+        //CerrarInventario();
         //Debug.Log("Celular");
-    }
+    //}
 
 }
