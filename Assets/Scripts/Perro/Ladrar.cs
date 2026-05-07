@@ -8,6 +8,7 @@ public class Ladrar : MonoBehaviour
     private bool listo = false;
     private PerroRuta perro;
     public GameObject Texto;
+    //private Animator anim;
 
     void OnTriggerEnter(Collider other)
     {
@@ -21,6 +22,7 @@ public class Ladrar : MonoBehaviour
         if (other.CompareTag("Perro") && !listo)
         {
             perro = other.GetComponent<PerroRuta>();
+            //anim = other.GetComponentInChildren<Animator>();
             if (perro == null)
             {
                 //perro.agarrar();
@@ -36,6 +38,7 @@ public class Ladrar : MonoBehaviour
             listo = true;
             Debug.Log("ladra");
             Texto.SetActive(true);
+            //anim.SetTrigger("Ladrar");
         }
     }
 
@@ -47,6 +50,7 @@ public class Ladrar : MonoBehaviour
             ladrando = false;
             perro.Soltar();
             Texto.SetActive(false);
+            //anim.ResetTrigger("Ladrar");
         }
     }
 }

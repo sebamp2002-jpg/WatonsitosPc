@@ -19,6 +19,7 @@ public class Cuerda : MonoBehaviour
         cuerda.endWidth = 0.05f;
         cuerda.positionCount = 2;
         cuerda.enabled = false;
+
     }
 
     void Update()
@@ -75,18 +76,26 @@ public class Cuerda : MonoBehaviour
                     distanciaActual = Mathf.Clamp(
                     Vector3.Distance(transform.position, Conectado.position),
                     DistMin, DistMax);
-                    Conectado.GetComponent<PerroRuta>().Soltar(); //Codigo PerroRuta
-                }                                                      //Debug.Log("Perro agarrado!");
-
-                else
-                { 
-                    Conectado.GetComponent<PerroRuta>().agarrar(); //Codigo PerroRuta
-                    DetectarPerro = false;
-                    Conectado = null;
-                    //Debug.Log("Perro suelto!");
-                    
-                }    
+                    Conectado.GetComponent<PerroRuta>().Soltar();
+                }
             }
+            else
+            {
+                if(Conectado != null) 
+                {
+                    PerroRuta ruta = Conectado.GetComponent<PerroRuta>();
+                    if (!ruta.EnRuta)
+                    {
+                        ruta.agarrar();
+                        DetectarPerro = false;
+                        Conectado = null;
+                    }
+                    //DetectarPerro = false;
+                    //Conectado = null;
+                    //Debug.Log("Perro suelto!");
+                }
+            }    
+            
         }
     }
 

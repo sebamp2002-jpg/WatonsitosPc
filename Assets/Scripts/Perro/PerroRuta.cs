@@ -8,18 +8,23 @@ public class PerroRuta : MonoBehaviour
     public Transform[] puntos; //Las rutas que tomara
     private NavMeshAgent agente;
     private int Actual = 0;
-    private bool EnRuta = true;
+    public bool EnRuta = true;
+    //private Animator anim;
+   
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
+        //anim = GetComponent<Animator>();
         agente.isStopped = true;
+        agente.updateRotation = false; 
         //MoverOtroPunto();
+        
     }
 
     
     void Update()
-    {
+    {        
         if (!EnRuta) 
         {
             return;
@@ -46,6 +51,7 @@ public class PerroRuta : MonoBehaviour
     {
         EnRuta = false;
         agente.isStopped = true;
+        //anim.SetBool("Caminando",false);
     }
 
     public void Soltar() 
@@ -55,5 +61,6 @@ public class PerroRuta : MonoBehaviour
         agente.isStopped = false;
         //MoverOtroPunto();
         agente.destination = puntos[Actual].position;
+        //anim.SetBool("Caminando", true);
     }
 }
