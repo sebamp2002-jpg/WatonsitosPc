@@ -25,8 +25,9 @@ public class Player : MonoBehaviour
     void movimiento()
     {
         float Vertical = Input.GetAxis("Vertical");
+        float Horizontal = Input.GetAxis("Horizontal");
 
-        Vector3 mover = player.forward * Vertical;
+        Vector3 mover = player.right * -Vertical + player.forward * Horizontal;
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
