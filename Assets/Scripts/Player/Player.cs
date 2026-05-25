@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     //Movimiento player
-    private float Caminar = 10, Correr = 18;
+    private float Caminar = 10, Correr = 18, Rotacion = 40;
     public float Normal;
     private Rigidbody rb;
     public Transform player;
@@ -27,7 +27,9 @@ public class Player : MonoBehaviour
         float Vertical = Input.GetAxis("Vertical");
         float Horizontal = Input.GetAxis("Horizontal");
 
-        Vector3 mover = player.right * -Vertical + player.forward * Horizontal;
+        transform.Rotate(0, Horizontal * Rotacion * Time.deltaTime, 0);
+
+        Vector3 mover = player.right * -Vertical; //+ player.forward * Horizontal
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
