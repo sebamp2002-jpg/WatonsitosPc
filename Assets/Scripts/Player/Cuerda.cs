@@ -78,6 +78,10 @@ public class Cuerda : MonoBehaviour
                     DistMin, DistMax);
                     Conectado.GetComponent<PerroRuta>().Soltar();
                 }
+                else 
+                {
+                    Debug.Log("Nada");
+                }
             }
             else
             {
