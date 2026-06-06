@@ -79,7 +79,7 @@ public class CuerdaRuta : MonoBehaviour
                     Vector3.Distance(transform.position, Conectado.position),
                     DistMin, DistMax);
                     Conectado.GetComponent<PerroRuta>().Soltar();
-                    rutaPlayer.IniciarPlayer();//RutaJugador
+                    //rutaPlayer.IniciarPlayer();//RutaJugador
                 }
                 else
                 {
