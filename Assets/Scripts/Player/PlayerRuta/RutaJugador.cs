@@ -1,40 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RutaJugador : MonoBehaviour
 {
-    public GameObject[] Puntos;
+    public Transform[] Puntos;
+    private NavMeshAgent agente;
     private int Ahora = 0;
-    private bool AhoraRuta = false;
 
     void Start()
     {
-        foreach (GameObject punto in Puntos) 
-        {
-            punto.SetActive(false);
-        }
+        agente = GetComponent<NavMeshAgent>();
+        agente.isStopped = false;
+        MoverOtroPunto();
     }
 
-    public void IniciarPlayer() 
+    void Update()
     {
-        AhoraRuta = true;
-        Ahora = 0;
-        Puntos[Ahora].SetActive(true);
+        if(!agente.pathPending && agente.remainingDistance < 0.5f) 
+        {
+            MoverOtroPunto();
+        }
     }
 
-    public void SiguientePlayer() 
+    void MoverOtroPunto()
     {
-        Puntos[Ahora].SetActive(false);
-        Ahora++;
-
-        if(Ahora < Puntos.Length) 
+        if (Puntos.Length == 0)
         {
-            Puntos[Ahora].SetActive(true);
+            return;
         }
-        else 
-        {
-            AhoraRuta = false;
-        }
+        agente.destination = Puntos[Ahora].position;
+        Ahora = (Ahora + 1) % Puntos.Length;
     }
+
+ // public void IniciarRuta()
+ // {
+ //     agente.isStopped = false;
+ //     agente.destination = Puntos[Ahora].position;
+ // }
+
 }
