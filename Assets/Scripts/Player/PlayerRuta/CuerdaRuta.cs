@@ -81,7 +81,13 @@ public class CuerdaRuta : MonoBehaviour
                     Vector3.Distance(transform.position, Conectado.position),
                     DistMin, DistMax);
                     Conectado.GetComponent<PerroRuta>().Soltar();
-                    rutaPlayer.AgarrarCuerda(); 
+                    rutaPlayer.AgarrarCuerda();
+
+                    Animator anim = Conectado.GetComponentInChildren<Animator>();
+                    if(anim != null) 
+                    {
+                        anim.SetBool("Caminando", true);
+                    }
                 }
                 else
                 {
@@ -99,7 +105,13 @@ public class CuerdaRuta : MonoBehaviour
                         DetectarPerro = false;
                         Conectado = null;
                         rutaPlayer.SoltarCuerda();
-                      
+
+                        Animator anim = Conectado.GetComponentInChildren<Animator>();
+                        if (anim != null) 
+                        {
+                            anim.SetBool("Caminando", false);
+                        }
+                        
                     }
                     
                 }
