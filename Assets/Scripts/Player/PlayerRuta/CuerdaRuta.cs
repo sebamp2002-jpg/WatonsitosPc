@@ -13,7 +13,7 @@ public class CuerdaRuta : MonoBehaviour
     private LineRenderer cuerda;
     private RutaJugador rutaPlayer;
 
-    private void Start()
+    void Start()
     {
         cuerda = gameObject.AddComponent<LineRenderer>();
         cuerda.startWidth = 0.05f;
@@ -21,6 +21,8 @@ public class CuerdaRuta : MonoBehaviour
         cuerda.positionCount = 2;
         cuerda.enabled = false;
         rutaPlayer = FindAnyObjectByType<RutaJugador>();
+
+        
     }
 
     void Update()
@@ -79,7 +81,7 @@ public class CuerdaRuta : MonoBehaviour
                     Vector3.Distance(transform.position, Conectado.position),
                     DistMin, DistMax);
                     Conectado.GetComponent<PerroRuta>().Soltar();
-                    //rutaPlayer.IniciarPlayer();//RutaJugador
+                    rutaPlayer.AgarrarCuerda(); 
                 }
                 else
                 {
@@ -96,10 +98,10 @@ public class CuerdaRuta : MonoBehaviour
                         ruta.agarrar();
                         DetectarPerro = false;
                         Conectado = null;
+                        rutaPlayer.SoltarCuerda();
+                      
                     }
-                    //DetectarPerro = false;
-                    //Conectado = null;
-                    //Debug.Log("Perro suelto!");
+                    
                 }
             }
 
