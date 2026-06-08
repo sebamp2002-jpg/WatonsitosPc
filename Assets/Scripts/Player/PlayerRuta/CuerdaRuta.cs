@@ -111,7 +111,7 @@ public class CuerdaRuta : MonoBehaviour
                         {
                             anim.SetBool("Caminando", false);
                         }
-                        
+
                     }
                     
                 }
