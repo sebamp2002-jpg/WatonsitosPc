@@ -4,33 +4,38 @@ using UnityEngine;
 
 public class PerroCaca : MonoBehaviour
 {
-    public GameObject Caca;
-    private bool cacaSuelo = false;
+    public GameObject Caca, Imagen;
     private bool Hizo = false;
     private PerroRuta perro;
-    public GameObject Texto;
+    private RutaJugador Player;
+    public Transform Spawn;
+
+    void Start()
+    {
+        Player = FindAnyObjectByType<RutaJugador>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Perro") && !cacaSuelo && !Hizo) 
+        if(other.CompareTag("Perro") && !Hizo) 
         {
             perro = other.GetComponent<PerroRuta>();
             perro.agarrar();
-            Caca.SetActive(true);
-            cacaSuelo = true;
+            Player.SoltarCuerda();
+            Instantiate(Caca, new Vector3(Spawn.position.x, Spawn.position.y + 3f, Spawn.position.z), Quaternion.identity);
             Hizo = true;
-            Texto.SetActive(true);
+            Imagen.SetActive(true);
         }
     }
 
     public void Limpiar() 
     {
-        if (cacaSuelo) 
+        if (Hizo) 
         {
-            Caca.SetActive(false);
-            cacaSuelo = false;
+            Imagen.SetActive(false);
+            Hizo = false;
             perro.Soltar();
-            Texto.SetActive(false);
+            Player.AgarrarCuerda();
         }
     }
 }

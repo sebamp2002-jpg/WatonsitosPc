@@ -3,14 +3,10 @@ using UnityEngine;
 public class Camara : MonoBehaviour
 {
     private float Sensibilidad = 200;
-    public Transform Player;
-    private float rotaHORI = 10;
-    private float rotaVER = 10;
+    private float rotaHORI = 0;
+    private float rotaVER = 0;
 
-    void Start()
-    {
-        //Cursor.lockstate = CursorLockMode.Locked;   
-    }
+    
     void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * Sensibilidad * Time.deltaTime;
@@ -19,10 +15,11 @@ public class Camara : MonoBehaviour
         rotaHORI += mouseX;
         rotaVER -= mouseY;
 
+        rotaHORI = Mathf.Clamp(rotaHORI, -90, 90);
         rotaVER = Mathf.Clamp(rotaVER, -90, 90);
 
-        transform.localRotation = Quaternion.Euler(rotaVER, 0, 0);
-        Player.rotation = Quaternion.Euler(0, rotaHORI, 0);
+        
+        transform.rotation = Quaternion.Euler(rotaVER, rotaHORI, 0);
         //transform.Rotate(Vector3.up * mouseX);
     }
 }
