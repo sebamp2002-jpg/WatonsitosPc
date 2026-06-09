@@ -94,28 +94,28 @@ public class CuerdaRuta : MonoBehaviour
                     Debug.Log("Nada");
                 }
             }
-            else
-            {
-                if (Conectado != null)
-                {
-                    PerroRuta ruta = Conectado.GetComponent<PerroRuta>();
-                    if (!ruta.EnRuta)
-                    {
-                        ruta.agarrar();
-                        DetectarPerro = false;
-                        Conectado = null;
-                        rutaPlayer.SoltarCuerda();
+            //else
+            //{
+                //if (Conectado != null)
+                //{
+                    //PerroRuta ruta = Conectado.GetComponent<PerroRuta>();
+                    //if (!ruta.EnRuta)
+                    //{
+                        //ruta.agarrar();
+                        //DetectarPerro = false;
+                        //Conectado = null;
+                        //rutaPlayer.SoltarCuerda();
 
-                        Animator anim = Conectado.GetComponentInChildren<Animator>();
-                        if (anim != null) 
-                        {
-                            anim.SetBool("Caminando", false);
-                        }
+                        //Animator anim = Conectado.GetComponentInChildren<Animator>();
+                        //if (anim != null) 
+                        //{
+                            //anim.SetBool("Caminando", false);
+                        //}
 
-                    }
+                    ///}
                     
-                }
-            }
+                //}
+            //}
 
         }
     }

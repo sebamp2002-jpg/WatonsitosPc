@@ -5,64 +5,57 @@ using UnityEngine.UI;
 
 public class LimpiarCaca : MonoBehaviour
 {
+    public float distancia = 3f;
+    public LayerMask Caca;
     public Slider slider;
-    public float velocidad = 50f;
-    private bool cerca = false;
-    private PerroCaca Ahora = null;
+    public float Sube = 1f;
+    public float Baja = 4f;
+
     private GameObject cacaObj = null;
 
     void Update()
     {
-        if(cerca && Ahora != null) 
+        if(cacaObj != null && slider.value > 0) 
         {
-            if (Input.GetKey(KeyCode.E)) 
+            slider.value -= Baja * Time.deltaTime;
+            if (slider.value < 0)
             {
-                slider.gameObject.SetActive(true);
-                slider.value += velocidad * Time.deltaTime;
-
-                if(slider.value >= slider.maxValue) 
+                slider.value = 0;
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.E)) 
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, transform.forward,out hit,distancia, Caca)) 
+            {
+                Debug.Log("Toca");
+                if (hit.collider.CompareTag("Caca")) 
                 {
-                    Ahora.Limpiar();
-                    if(cacaObj != null) 
+                    cacaObj = hit.collider.gameObject;
+                    slider.gameObject.SetActive(true);
+                    slider.value += Sube;
+
+                    if (slider.value >= 100f)
                     {
+
+                        FindAnyObjectByType<PerroCaca>().Limpiar();
                         Destroy(cacaObj);
+                        slider.value = 0;
+                        slider.gameObject.SetActive(false);
+                        cacaObj = null;
+                        //Debug.Log("Funciona");
                     }
-                    slider.value = 0;
-                    slider.gameObject.SetActive(false);
-                    cerca = false;
-                    Ahora = null;
                 }
             }
             else 
             {
-                slider.value = 0;
-                slider.gameObject.SetActive(false);
+                Debug.Log("Nada");
+                if(slider.value > 0) 
+                {
+                    slider.value -= Baja;
+                }
             }
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Caca")) 
-        {
-            cacaObj = other.gameObject;
-            Ahora = other.GetComponent<PerroCaca>();
-            if (Ahora != null)
-            {
-                cerca = true;
-            }
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Caca")) 
-        {
-            cerca = false;
-            Ahora = null;
-            cacaObj = null;
-            slider.value = 0;
-            slider.gameObject.SetActive(false);
-        }
-    }
 }
