@@ -22,7 +22,11 @@ public class PerroCaca : MonoBehaviour
             perro = other.GetComponent<PerroRuta>();
             perro.agarrar();
             Player.SoltarCuerda();
-            Instantiate(Caca, new Vector3(Spawn.position.x, Spawn.position.y + 1f, Spawn.position.z), Quaternion.identity);
+
+            Instantiate(Caca, new Vector3(Spawn.position.x, Spawn.position.y + 6f, Spawn.position.z), Quaternion.identity);
+            
+          //Instantiate(Caca, Spawn.position, Quaternion.identity);
+            
             Hizo = true;
             Imagen.SetActive(true);
         }

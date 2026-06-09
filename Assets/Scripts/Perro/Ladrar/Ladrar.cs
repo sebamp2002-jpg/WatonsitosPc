@@ -7,8 +7,14 @@ public class Ladrar : MonoBehaviour
     private bool ladrando = false;
     private bool listo = false;
     private PerroRuta perro;
-    public GameObject Texto;
+    private RutaJugador Jugador;
+
     //private Animator anim;
+
+    void Start()
+    {
+        Jugador = FindAnyObjectByType<RutaJugador>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -34,22 +40,23 @@ public class Ladrar : MonoBehaviour
                 return;
             }
             perro.agarrar();
+            Jugador.SoltarCuerda();
             ladrando = true;
             listo = true;
             Debug.Log("ladra");
-            Texto.SetActive(true);
+
             //anim.SetTrigger("Ladrar");
         }
     }
 
-    public void Darpremio() 
+    public void Darpremio()
     {
-        if (ladrando && perro != null) 
+        if (ladrando && perro != null)
         {
             Debug.Log("Se calmo");
             ladrando = false;
             perro.Soltar();
-            Texto.SetActive(false);
+            Jugador.AgarrarCuerda();
             //anim.ResetTrigger("Ladrar");
         }
     }
