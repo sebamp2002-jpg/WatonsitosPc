@@ -11,7 +11,12 @@ public class Dialogo : MonoBehaviour
     private int LineaActual = 0;
     private bool hablando = false, Cerca = false;
 
+    private RutaJugador jugador;
 
+    void Start()
+    {
+        jugador = FindAnyObjectByType<RutaJugador>();
+    }
 
     void Update()
     {
@@ -35,6 +40,7 @@ public class Dialogo : MonoBehaviour
         Texto.text = Lineas[LineaActual];
 
         Imagen.SetActive(false);
+        jugador.SoltarCuerda();
     }
 
     void Siguiente() 
@@ -55,7 +61,8 @@ public class Dialogo : MonoBehaviour
         hablando = false;
         PanelDialogo.SetActive(false);
         LineaActual = 0;
-        Debug.Log("Encargo Recibido!");
+        jugador.AgarrarCuerda();
+        //Debug.Log("Encargo Recibido!");
     }
     void OnTriggerEnter(Collider other)
     {
