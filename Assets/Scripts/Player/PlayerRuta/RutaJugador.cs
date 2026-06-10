@@ -43,15 +43,40 @@ public class RutaJugador : MonoBehaviour
 
     public void AgarrarCuerda() 
     {
+        if (!agente.isOnNavMesh) 
+        {
+            return;
+        }
+        if(Puntos.Length == 0) 
+        {
+            return;
+        }
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                            RigidbodyConstraints.FreezeRotationZ;
+
         EnRuta = true;
         agente.isStopped = false;
-        MoverOtroPunto();
+
+        if(Ahora > 0) 
+        {
+            Ahora--;
+        }
+        agente.destination = Puntos[Ahora].position;
+        //MoverOtroPunto();
+
     }
 
     public void SoltarCuerda() 
     {
         EnRuta = false;
         agente.isStopped = true;
+        agente.velocity = Vector3.zero;
+        agente.ResetPath();
+
+        //Para que no rote cuando se detenga
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                            RigidbodyConstraints.FreezeRotationZ |
+                                            RigidbodyConstraints.FreezePosition;
     }
     
 

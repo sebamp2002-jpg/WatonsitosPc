@@ -30,6 +30,12 @@ public class PerroRuta : MonoBehaviour
             return;
         }
 
+        if(agente.hasPath && agente.velocity.magnitude < 0.1f) 
+        {
+            agente.isStopped = false;
+            agente.destination = puntos[Actual].position;
+        }
+
         if(!agente.pathPending && agente.remainingDistance < 0.5f) 
         {
             //Actual = (Actual + 1) % puntos.Length;
@@ -51,16 +57,28 @@ public class PerroRuta : MonoBehaviour
     {
         EnRuta = false;
         agente.isStopped = true;
+        agente.velocity = Vector3.zero;
+        agente.ResetPath();
         //anim.SetBool("Caminando",false);
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                            RigidbodyConstraints.FreezeRotationZ |
+                                            RigidbodyConstraints.FreezePosition;
     }
 
     public void Soltar() 
     {
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                            RigidbodyConstraints.FreezeRotationZ;
+
         //Actual = 0;
         EnRuta = true;
         agente.isStopped = false;
         //MoverOtroPunto();
+
         agente.destination = puntos[Actual].position;
+        //agente.ResetPath();
         //anim.SetBool("Caminando", true);
     }
+
+    
 }
