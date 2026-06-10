@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Ladrar : MonoBehaviour
@@ -8,6 +9,7 @@ public class Ladrar : MonoBehaviour
     private bool listo = false;
     private PerroRuta perro;
     private RutaJugador Jugador;
+    public DarPremio prueba;
 
     //private Animator anim;
 
@@ -23,7 +25,7 @@ public class Ladrar : MonoBehaviour
         //perro.agarrar();
         //ladrando = true;
         //listo = true;
-        Debug.Log("Entro al trigger: " + other.gameObject.name + " tag: " + other.tag);
+        //Debug.Log("Entro al trigger: " + other.gameObject.name + " tag: " + other.tag);
 
         if (other.CompareTag("Perro") && !listo)
         {
@@ -31,20 +33,14 @@ public class Ladrar : MonoBehaviour
             //anim = other.GetComponentInChildren<Animator>();
             if (perro == null)
             {
-                //perro.agarrar();
-                //ladrando = true;
-                //listo = true;
-                //Debug.Log("ladra");
-                //Texto.SetActive(true);
-                //Debug.LogError("El objeto Perro no tiene PerroRuta!");
                 return;
             }
+            
             perro.agarrar();
             Jugador.SoltarCuerda();
             ladrando = true;
             listo = true;
-            Debug.Log("ladra");
-
+            prueba.IniciarPrueba(this);
             //anim.SetTrigger("Ladrar");
         }
     }
@@ -56,8 +52,18 @@ public class Ladrar : MonoBehaviour
             Debug.Log("Se calmo");
             ladrando = false;
             perro.Soltar();
+            //Invoke("ComienzaJugador", 4f); //deberia esperar 0.5 segundos
             Jugador.AgarrarCuerda();
             //anim.ResetTrigger("Ladrar");
         }
+        else 
+        {
+            Debug.Log("ladrando");
+        }
+    }
+
+    void ComienzaJugador() 
+    {
+        Jugador.AgarrarCuerda();
     }
 }
