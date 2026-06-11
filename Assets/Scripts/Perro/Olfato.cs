@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Olfato : MonoBehaviour
 {
@@ -10,7 +11,14 @@ public class Olfato : MonoBehaviour
     float Tiempo = 0;
     private bool olfateando = false;
     private PerroRuta ruta;
-    public GameObject Texto;
+    private RutaJugador Jugador;
+    public Slider sliderTiempo;
+    //public GameObject Texto;
+
+    void Start()
+    {
+        Jugador = FindAnyObjectByType<RutaJugador>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -18,9 +26,12 @@ public class Olfato : MonoBehaviour
         {
             ruta = other.GetComponent<PerroRuta>();
             ruta.agarrar();
+            Jugador.SoltarCuerda();
             olfateando = true;
+            sliderTiempo.value = 1;
+            sliderTiempo.gameObject.SetActive(true);
             Debug.Log("Olfateando");
-            Texto.SetActive(true);
+            //Texto.SetActive(true);
             //Invoke(TiempoEspera);            
         }
     }
@@ -30,6 +41,8 @@ public class Olfato : MonoBehaviour
         if (olfateando)
         {
             Tiempo += Time.deltaTime;
+            sliderTiempo.value = 100 - (Tiempo / TiempoEspera * 100);
+
 
             if (Tiempo >= TiempoEspera)
             {
@@ -42,8 +55,10 @@ public class Olfato : MonoBehaviour
     void Terminar() 
     {
         ruta.Soltar();
+        sliderTiempo.gameObject.SetActive(false);
+        Jugador.AgarrarCuerda();
         olfateando = false;
         Debug.Log("Termino");
-        Texto.SetActive(false);
+        //Texto.SetActive(false);
     }
 }
