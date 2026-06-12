@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &17918583
 RectTransform:
   m_ObjectHideFlags: 0
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696963639}
+      - m_Target: {fileID: 645897008}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: CambiarEscena
         m_Mode: 5
@@ -823,6 +823,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 645897007}
+  - component: {fileID: 645897009}
   - component: {fileID: 645897008}
   m_Layer: 0
   m_Name: GameObject
@@ -855,7 +856,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 645897005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 920f84ce5964df74c9fad29764cc3e76, type: 3}
+  m_Script: {fileID: 11500000, guid: 2758118730d8e4940b3e00bc314ddce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &645897009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645897005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8644c685529874e47a9510213c95db6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   genero: 
@@ -942,7 +955,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696963639}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: Salida
         m_Mode: 1
@@ -1209,7 +1222,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696963639}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: Salida
         m_Mode: 1
@@ -2353,7 +2366,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1395543875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48338ed82ec59854d8fa96a5ca14b6d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 539f754d318ed854c96e2471d1acab3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textoResultado: {fileID: 29424069}
@@ -2881,7 +2894,6 @@ GameObject:
   - component: {fileID: 1696963642}
   - component: {fileID: 1696963641}
   - component: {fileID: 1696963640}
-  - component: {fileID: 1696963639}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2889,18 +2901,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1696963639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696963638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17ea012d457a260489df146d8b2da4b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1696963640
 MonoBehaviour:
   m_ObjectHideFlags: 0
