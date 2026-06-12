@@ -9,6 +9,7 @@ public class Ladrar : MonoBehaviour
     private bool listo = false;
     private PerroRuta perro;
     private RutaJugador Jugador;
+    private Animator anim;
     public DarPremio prueba;
 
     //private Animator anim;
@@ -35,13 +36,19 @@ public class Ladrar : MonoBehaviour
             {
                 return;
             }
-            
+            anim = other.GetComponentInChildren<Animator>();
+
             perro.agarrar();
             Jugador.SoltarCuerda();
             ladrando = true;
             listo = true;
             prueba.IniciarPrueba(this);
-            //anim.SetTrigger("Ladrar");
+
+            if (anim != null)
+            {
+                anim.SetBool("Caminando", false);
+                anim.SetTrigger("Ladrar");
+            }
         }
     }
 
@@ -51,15 +58,22 @@ public class Ladrar : MonoBehaviour
         {
             Debug.Log("Se calmo");
             ladrando = false;
-            perro.Soltar();
-            //Invoke("ComienzaJugador", 4f); //deberia esperar 0.5 segundos
-            Jugador.AgarrarCuerda();
-            //anim.ResetTrigger("Ladrar");
+            listo = false;
+             
+
         }
-        else 
+
+        if(anim != null) 
         {
-            Debug.Log("ladrando");
+            anim.SetTrigger("Premio");
         }
+        perro.Soltar();
+        Jugador.AgarrarCuerda();
+        if (anim != null)
+        {
+            anim.SetBool("Caminando", true);
+        }
+        GetComponent<Collider>().enabled = false;
     }
 
     void ComienzaJugador() 

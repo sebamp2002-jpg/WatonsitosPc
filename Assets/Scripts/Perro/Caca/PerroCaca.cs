@@ -8,11 +8,13 @@ public class PerroCaca : MonoBehaviour
     private bool Hizo = false;
     private PerroRuta perro;
     private RutaJugador Player;
-    public Transform Spawn;
+    private Animator anim;
+    
 
     void Start()
     {
         Player = FindAnyObjectByType<RutaJugador>();
+        Caca.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -20,15 +22,19 @@ public class PerroCaca : MonoBehaviour
         if(other.CompareTag("Perro") && !Hizo) 
         {
             perro = other.GetComponent<PerroRuta>();
+            anim = other.GetComponentInChildren<Animator>();
+
             perro.agarrar();
             Player.SoltarCuerda();
-
-            Instantiate(Caca, new Vector3(Spawn.position.x, Spawn.position.y + 6f, Spawn.position.z), Quaternion.identity);
-            
-          //Instantiate(Caca, Spawn.position, Quaternion.identity);
-            
+            Caca.SetActive(true);
             Hizo = true;
             Imagen.SetActive(true);
+
+            if (anim != null)
+            {
+                anim.SetBool("Caminando", false);
+                anim.SetTrigger("Premio"); 
+            }
         }
     }
 
@@ -36,10 +42,16 @@ public class PerroCaca : MonoBehaviour
     {
         if (Hizo) 
         {
+            Caca.SetActive(false);
             Imagen.SetActive(false);
             Hizo = false;
             perro.Soltar();
             Player.AgarrarCuerda();
+            GetComponent<Collider>().enabled = false; 
+            if (anim != null)
+            {
+                anim.SetBool("Caminando", true);
+            }
         }
     }
 }
