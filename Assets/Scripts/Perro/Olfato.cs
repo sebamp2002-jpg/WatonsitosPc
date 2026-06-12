@@ -12,6 +12,7 @@ public class Olfato : MonoBehaviour
     private bool olfateando = false;
     private PerroRuta ruta;
     private RutaJugador Jugador;
+    private Animator anim;
     public Slider sliderTiempo;
     //public GameObject Texto;
 
@@ -25,6 +26,8 @@ public class Olfato : MonoBehaviour
         if(other.CompareTag("Perro") && !olfateando) 
         {
             ruta = other.GetComponent<PerroRuta>();
+            anim = other.GetComponent<Animator>();
+
             ruta.agarrar();
             Jugador.SoltarCuerda();
             olfateando = true;
@@ -32,7 +35,12 @@ public class Olfato : MonoBehaviour
             sliderTiempo.gameObject.SetActive(true);
             Debug.Log("Olfateando");
             //Texto.SetActive(true);
-            //Invoke(TiempoEspera);            
+            //Invoke(TiempoEspera);
+            if (anim != null)
+            {
+                anim.SetBool("Caminando", false);
+                anim.SetTrigger("Oler");
+            }
         }
     }
 
@@ -58,6 +66,12 @@ public class Olfato : MonoBehaviour
         sliderTiempo.gameObject.SetActive(false);
         Jugador.AgarrarCuerda();
         olfateando = false;
+        GetComponent<Collider>().enabled = false;
+
+        if (anim != null)
+        {
+            anim.SetBool("Caminando", true);
+        }
         Debug.Log("Termino");
         //Texto.SetActive(false);
     }

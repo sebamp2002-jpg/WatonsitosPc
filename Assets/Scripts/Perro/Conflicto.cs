@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Conflicto : MonoBehaviour
 {
     public Transform Atraccion;
-    //public float Distancia = 2f, VeloSlider = 10f;
+    public float Fuerza = 1f;
     public Slider SliderResist;
 
     private bool activo = false, Usado = false;
@@ -36,6 +36,8 @@ public class Conflicto : MonoBehaviour
             Usado = true;
             SliderResist.value = 0;
             SliderResist.gameObject.SetActive(true);
+
+            cuerda.distanciaActual = cuerda.DistMax;
             MeshPerro.isStopped = false;
             MeshPerro.destination = Atraccion.position;
         }
@@ -47,25 +49,45 @@ public class Conflicto : MonoBehaviour
         {
             return;
         }
-        //ve la distancia del jugador
-        //float distancia = Vector3.Distance(jugador.transform.position, perro.transform.position);
 
-        //float minReal = cuerda.DistMin - 1f;
-        float porcentaje = 1 - ((cuerda.distanciaActual - cuerda.DistMin) / (cuerda.DistMax - cuerda.DistMin));
+        //float scroll = Input.GetAxis("Mouse ScrollWheel");
+        //if (scroll != 0)
+        //{
+            //cuerda.distanciaActual -= scroll * Fuerza;
+            //cuerda.distanciaActual = Mathf.Clamp(cuerda.distanciaActual, cuerda.DistMin, cuerda.DistMax);
+        //}
+
+        cuerda.distanciaActual += Fuerza * Time.deltaTime;
+        cuerda.distanciaActual = Mathf.Clamp(cuerda.distanciaActual, cuerda.DistMin, cuerda.DistMax);
+
+        float porcentaje = 1f -((cuerda.distanciaActual - cuerda.DistMin) / (cuerda.DistMax - cuerda.DistMin));
         porcentaje = Mathf.Clamp01(porcentaje);
         SliderResist.value = porcentaje * SliderResist.maxValue;
 
-        //float distMax = cuerda.DistMax;
-        //float distMin = cuerda.DistMin;
-
-        //SliderResist.value = Mathf.InverseLerp(distMax, distMin, distancia) * SliderResist.maxValue;
 
         if (SliderResist.value >= SliderResist.maxValue)
+        {
+            PerroGana();
+        }
+
+        if(cuerda.distanciaActual <= cuerda.DistMin + 0.5f) 
+        {
+            JugadorGana();
+        }
+
+        void PerroGana() 
+        {
+            activo = false;
+            SliderResist.gameObject.SetActive(false);
+            jugador.AgarrarCuerda();
+        }
+        void JugadorGana() 
         {
             activo = false;
             SliderResist.gameObject.SetActive(false);
             perro.Soltar();
             jugador.AgarrarCuerda();
+            //GetComponent<Collider>().enabled = false;
         }
     }
 }

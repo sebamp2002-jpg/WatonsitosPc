@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CuerdaRuta : MonoBehaviour
 {
-    public float DistMax = 6, DistMin = 2, Velo = 3, RaycastDist = 6, distanciaActual;
+    public float DistMax = 7, DistMin = 3, Velo = 3, RaycastDist = 8, distanciaActual;
     private bool DetectarPerro = false;
     private Transform Conectado = null;
     public Transform Mano;
