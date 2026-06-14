@@ -35,14 +35,13 @@ public class CuerdaRuta : MonoBehaviour
 
         if (DetectarPerro && Conectado != null)
         {
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
-            if (scroll != 0)
-            {
-                distanciaActual += scroll * Velo;
-                distanciaActual = Mathf.Clamp(distanciaActual, DistMin, DistMax);
-            }
-            //Vector3 direccion = (Conectado.position - Mano.position).normalized;
-            //Conectado.position = Mano.position + direccion * distanciaActual;
+            //float scroll = Input.GetAxis("Mouse ScrollWheel");
+            //if (scroll != 0)
+            //{
+                //distanciaActual += scroll * Velo;
+                //distanciaActual = Mathf.Clamp(distanciaActual, DistMin, DistMax);
+            //}
+            
             PerroRuta ruta = Conectado.GetComponent<PerroRuta>();
             if (ruta != null)
             {
@@ -93,29 +92,12 @@ public class CuerdaRuta : MonoBehaviour
                     Debug.Log("Nada");
                 }
             }
-            //else
-            //{
-                //if (Conectado != null)
-                //{
-                    //PerroRuta ruta = Conectado.GetComponent<PerroRuta>();
-                    //if (!ruta.EnRuta)
-                    //{
-                        //ruta.agarrar();
-                        //DetectarPerro = false;
-                        //Conectado = null;
-                        //rutaPlayer.SoltarCuerda();
-
-                        //Animator anim = Conectado.GetComponentInChildren<Animator>();
-                        //if (anim != null) 
-                        //{
-                            //anim.SetBool("Caminando", false);
-                        //}
-
-                    ///}
-                    
-                //}
-            //}
-
+            
         }
+    }
+
+    public Transform Conect() 
+    {
+        return Conectado;
     }
 }
