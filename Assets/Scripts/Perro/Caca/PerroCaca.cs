@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PerroCaca : MonoBehaviour
 {
-    public GameObject Caca, Imagen;
+    public GameObject Caca; //Imagen
     private bool Hizo = false;
     private PerroRuta perro;
     private RutaJugador Player;
@@ -14,7 +14,10 @@ public class PerroCaca : MonoBehaviour
     void Start()
     {
         Player = FindAnyObjectByType<RutaJugador>();
-        Caca.SetActive(false);
+        if (Caca != null)
+        {
+            Caca.SetActive(false);
+        }        
     }
 
     void OnTriggerEnter(Collider other)
@@ -22,13 +25,27 @@ public class PerroCaca : MonoBehaviour
         if(other.CompareTag("Perro") && !Hizo) 
         {
             perro = other.GetComponent<PerroRuta>();
+            if(perro == null) 
+            {
+                perro = other.GetComponent<PerroRuta>();
+            }
+            if(perro == null) 
+            {
+                return;
+            }
             anim = other.GetComponentInChildren<Animator>();
 
             perro.agarrar();
             Player.SoltarCuerda();
-            Caca.SetActive(true);
+            Player.agente.isStopped = true;
+            Player.agente.velocity = Vector3.zero;
+            Player.agente.ResetPath();
             Hizo = true;
-            Imagen.SetActive(true);
+            //Imagen.SetActive(true);
+            if(Caca != null) 
+            {
+                Caca.SetActive(true);
+            }
 
             if (anim != null)
             {
@@ -40,18 +57,30 @@ public class PerroCaca : MonoBehaviour
 
     public void Limpiar() 
     {
-        if (Hizo) 
+        if (!Hizo) 
+        {
+            return;
+        }
+
+        if(Caca != null) 
         {
             Caca.SetActive(false);
-            Imagen.SetActive(false);
-            Hizo = false;
-            perro.Soltar();
-            Player.AgarrarCuerda();
-            GetComponent<Collider>().enabled = false; 
-            if (anim != null)
-            {
-                anim.SetBool("Caminando", true);
-            }
         }
+        if(perro != null) 
+        {
+            perro.Soltar();
+        }
+        if(Player != null) 
+        {
+            Player.CuerdaSinVuelta();
+        }
+
+        if (anim != null)
+        {
+            anim.SetBool("Caminando", true);
+        }
+
+        Hizo = false;
+        GetComponent<Collider>().enabled = false;
     }
 }
