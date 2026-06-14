@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Conflicto : MonoBehaviour
 {
     public Transform Atraccion;
-    public float Fuerza = 1f;
+    public float Fuerza = 1f, Resistencia = 0.5f;
     public Slider SliderResist;
 
     private bool activo = false, Usado = false;
@@ -50,15 +50,14 @@ public class Conflicto : MonoBehaviour
             return;
         }
 
-        //float scroll = Input.GetAxis("Mouse ScrollWheel");
-        //if (scroll != 0)
-        //{
-            //cuerda.distanciaActual -= scroll * Fuerza;
-            //cuerda.distanciaActual = Mathf.Clamp(cuerda.distanciaActual, cuerda.DistMin, cuerda.DistMax);
-        //}
-
         cuerda.distanciaActual += Fuerza * Time.deltaTime;
         cuerda.distanciaActual = Mathf.Clamp(cuerda.distanciaActual, cuerda.DistMin, cuerda.DistMax);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            cuerda.distanciaActual -= Resistencia;
+            cuerda.distanciaActual = Mathf.Clamp(cuerda.distanciaActual, cuerda.DistMin, cuerda.DistMax);
+        }
 
         float porcentaje = 1f -((cuerda.distanciaActual - cuerda.DistMin) / (cuerda.DistMax - cuerda.DistMin));
         porcentaje = Mathf.Clamp01(porcentaje);

@@ -15,6 +15,9 @@ public class RutaJugador : MonoBehaviour
         agente = GetComponent<NavMeshAgent>();
         agente.isStopped = true;
         //MoverOtroPunto();
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                            RigidbodyConstraints.FreezeRotationZ |
+                                            RigidbodyConstraints.FreezePosition;
     }
 
     void Update()
