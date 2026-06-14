@@ -57,6 +57,9 @@ public class ComportamientoCuerda : MonoBehaviour
         Transform perroTransform = cuerda.Conect();
         PerroRuta perro = perroTransform.GetComponent<PerroRuta>();
 
+        Vector3 destinoPerro = perro.agente.destination;
+        Vector3 destinoJugador = jugador.agente.destination;
+
         perro.agarrar();
         jugador.SoltarCuerda();
 
@@ -84,8 +87,8 @@ public class ComportamientoCuerda : MonoBehaviour
             yield return null;
         }
 
-        perro.Soltar();
-        jugador.AgarrarCuerda();
+        perro.SoltarConDestino(destinoPerro);
+        jugador.AgarrarCuerdaConDestino(destinoJugador);
 
         Secuencia = false;
     }
