@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class RutaJugador : MonoBehaviour
 {
     public Transform[] Puntos;
-    private NavMeshAgent agente;
-    private int Ahora = 0;
+    public NavMeshAgent agente;
+    public int Ahora = 0;
     private bool EnRuta = false;
 
     void Start()
@@ -69,6 +69,23 @@ public class RutaJugador : MonoBehaviour
 
     }
 
+    public void CuerdaSinVuelta() 
+    {
+        if (!agente.isOnNavMesh) 
+        {
+            return;
+        }
+        if (Puntos.Length == 0)
+        {
+            return;
+        }
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                               RigidbodyConstraints.FreezeRotationZ;
+        EnRuta = true;
+        agente.isStopped = false;
+        agente.destination = Puntos[Ahora].position;
+    }
+
     public void SoltarCuerda() 
     {
         EnRuta = false;
@@ -81,7 +98,18 @@ public class RutaJugador : MonoBehaviour
                                             RigidbodyConstraints.FreezeRotationZ |
                                             RigidbodyConstraints.FreezePosition;
     }
-    
+
+    public void AgarrarCuerdaConDestino(Vector3 destino)
+    {
+        if (!agente.isOnNavMesh) return;
+
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                                RigidbodyConstraints.FreezeRotationZ;
+        EnRuta = true;
+        agente.isStopped = false;
+        agente.destination = destino;
+    }
+
 
 
 }

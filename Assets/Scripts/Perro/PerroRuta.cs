@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class PerroRuta : MonoBehaviour
 {
     public Transform[] puntos; //Las rutas que tomara
-    private NavMeshAgent agente;
-    private int Actual = 0;
+    public NavMeshAgent agente;
+    public int Actual = 0;
     public bool EnRuta = true;
     //private Animator anim;
    
@@ -30,11 +30,11 @@ public class PerroRuta : MonoBehaviour
             return;
         }
 
-        if(agente.hasPath && agente.velocity.magnitude < 0.1f) 
-        {
-            agente.isStopped = false;
-            agente.destination = puntos[Actual].position;
-        }
+        //if(agente.hasPath && agente.velocity.magnitude < 0.1f) 
+        //{
+            //agente.isStopped = false;
+            //agente.destination = puntos[Actual].position;
+        //}
 
         if(!agente.pathPending && agente.remainingDistance < 0.5f) 
         {
@@ -80,5 +80,14 @@ public class PerroRuta : MonoBehaviour
         //anim.SetBool("Caminando", true);
     }
 
-    
+    public void SoltarConDestino(Vector3 destino)
+    {
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                                RigidbodyConstraints.FreezeRotationZ;
+        EnRuta = true;
+        agente.isStopped = false;
+        agente.destination = destino;
+    }
+
+
 }
