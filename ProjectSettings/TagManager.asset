@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Perro
   - Caca
+  - Limite
+  - Limite1
   layers:
   - Default
   - TransparentFX
