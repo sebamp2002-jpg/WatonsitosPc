@@ -10,50 +10,53 @@ public class PerroRuta : MonoBehaviour
     public int Actual = 0;
     public bool EnRuta = true;
     //private Animator anim;
-   
+
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
         //anim = GetComponent<Animator>();
         agente.isStopped = true;
-        agente.updateRotation = false; 
+        agente.updateRotation = false;
         //MoverOtroPunto();
-        
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                            RigidbodyConstraints.FreezeRotationZ |
+                                            RigidbodyConstraints.FreezePosition;
+
     }
 
-    
+
     void Update()
-    {        
-        if (!EnRuta) 
+    {
+        if (!EnRuta)
         {
             return;
         }
 
         //if(agente.hasPath && agente.velocity.magnitude < 0.1f) 
         //{
-            //agente.isStopped = false;
-            //agente.destination = puntos[Actual].position;
+        //agente.isStopped = false;
+        //agente.destination = puntos[Actual].position;
         //}
 
-        if(!agente.pathPending && agente.remainingDistance < 0.5f) 
+        if (!agente.pathPending && agente.remainingDistance < 0.5f)
         {
             //Actual = (Actual + 1) % puntos.Length;
             MoverOtroPunto();
         }
     }
 
-    void MoverOtroPunto() 
+    void MoverOtroPunto()
     {
-        if (puntos.Length == 0) 
-        { 
-            return; 
+        if (puntos.Length == 0)
+        {
+            return;
         }
         agente.destination = puntos[Actual].position;
         Actual = (Actual + 1) % puntos.Length;
     }
 
-    public void agarrar() 
+    public void agarrar()
     {
         EnRuta = false;
         agente.isStopped = true;
@@ -65,7 +68,7 @@ public class PerroRuta : MonoBehaviour
                                             RigidbodyConstraints.FreezePosition;
     }
 
-    public void Soltar() 
+    public void Soltar()
     {
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
                                             RigidbodyConstraints.FreezeRotationZ;
