@@ -12,6 +12,10 @@ public class MoverCuerda : MonoBehaviour
 
     void Update()
     {
+        if(Time.timeScale == 0) 
+        {
+            return;
+        }
 
         Vector3[] esquinas = new Vector3[4];
         Panel.GetWorldCorners(esquinas);

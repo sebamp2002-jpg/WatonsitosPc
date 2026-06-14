@@ -17,9 +17,12 @@ public class PerroRuta : MonoBehaviour
         agente = GetComponent<NavMeshAgent>();
         //anim = GetComponent<Animator>();
         agente.isStopped = true;
-        agente.updateRotation = false; 
+        agente.updateRotation = false;
         //MoverOtroPunto();
-        
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX |
+                                            RigidbodyConstraints.FreezeRotationZ |
+                                            RigidbodyConstraints.FreezePosition;
+
     }
 
     
